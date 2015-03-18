@@ -1,0 +1,33 @@
+Identifier	Database
+856375	Entrez Gene
+856836	Entrez Gene
+ 	Entrez Gene
+ 	Entrez Gene
+851073	Entrez Gene
+854948	Entrez Gene
+ 	Entrez Gene
+855621	Entrez Gene
+ 	Entrez Gene
+854508	Entrez Gene
+851456	Entrez Gene
+ 	Entrez Gene
+854744	Entrez Gene
+ 	Entrez Gene
+856182	Entrez Gene
+ 	Entrez Gene
+ 	Entrez Gene
+50-69-1	CAS
+97-55-2	CAS
+3031-95-6	CAS
+3031-94-5	CAS
+85-32-5	CAS
+69-89-6	CAS
+85-32-5	CAS
+73-40-5	CAS
+69-93-2	CAS
+68-94-0	CAS
+71-44-3	CAS
+73-24-5	CAS
+124-20-9	CAS
+110-60-1	CAS
+70-26-8	CAS

@@ -1,0 +1,19 @@
+Identifier	Database
+853272	Entrez Gene
+855986	Entrez Gene
+854913	Entrez Gene
+854900	Entrez Gene
+855248	Entrez Gene
+855779	Entrez Gene
+853272	Entrez Gene
+856597	Entrez Gene
+850745	Entrez Gene
+856470	Entrez Gene
+853086	Entrez Gene
+852883	Entrez Gene
+856398	Entrez Gene
+852951	Entrez Gene
+72-89-9	CAS
+111-02-4	CAS
+80-99-9	CAS
+57-88-5	CAS

@@ -1,0 +1,87 @@
+Identifier	Database
+855404	Entrez Gene
+855621	Entrez Gene
+854825	Entrez Gene
+853821	Entrez Gene
+856305	Entrez Gene
+855459	Entrez Gene
+852352	Entrez Gene
+854658	Entrez Gene
+852673	Entrez Gene
+850980	Entrez Gene
+856130	Entrez Gene
+856680	Entrez Gene
+852258	Entrez Gene
+852501	Entrez Gene
+854656	Entrez Gene
+852245	Entrez Gene
+855426	Entrez Gene
+853531	Entrez Gene
+852383	Entrez Gene
+854059	Entrez Gene
+854392	Entrez Gene
+852385	Entrez Gene
+851545	Entrez Gene
+851266	Entrez Gene
+850793	Entrez Gene
+853462	Entrez Gene
+851456	Entrez Gene
+853244	Entrez Gene
+850620	Entrez Gene
+2564-35-4	CAS
+1927-31-7	CAS
+2056-98-6	CAS
+2564-35-4	CAS
+1927-31-7	CAS
+1927-31-7	CAS
+58-64-0	CAS
+1927-31-7	CAS
+58-64-0	CAS
+1927-31-7	CAS
+P47112	Uniprot-TrEMBL
+852352	Entrez Gene
+852352	Entrez Gene
+852352	Entrez Gene
+852352	Entrez Gene
+852352	Entrez Gene
+852352	Entrez Gene
+853244	Entrez Gene
+852352	Entrez Gene
+853244	Entrez Gene
+856680	Entrez Gene
+852258	Entrez Gene
+856130	Entrez Gene
+850980	Entrez Gene
+852673	Entrez Gene
+852501	Entrez Gene
+852352	Entrez Gene
+853244	Entrez Gene
+856680	Entrez Gene
+852258	Entrez Gene
+856130	Entrez Gene
+850980	Entrez Gene
+852673	Entrez Gene
+852501	Entrez Gene
+852352	Entrez Gene
+853244	Entrez Gene
+854656	Entrez Gene
+854656	Entrez Gene
+856680	Entrez Gene
+852258	Entrez Gene
+856130	Entrez Gene
+850980	Entrez Gene
+852673	Entrez Gene
+852501	Entrez Gene
+852352	Entrez Gene
+853244	Entrez Gene
+854656	Entrez Gene
+856680	Entrez Gene
+852258	Entrez Gene
+856130	Entrez Gene
+850980	Entrez Gene
+852673	Entrez Gene
+852501	Entrez Gene
+852352	Entrez Gene
+853244	Entrez Gene
+853244	Entrez Gene
+853244	Entrez Gene
