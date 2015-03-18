@@ -1,1 +1,1 @@
-# Pathway-Database-Intergration
+# Pathway-Database-Integration
