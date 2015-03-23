@@ -1,0 +1,10 @@
+Lysine biosynthesis, AAA pathway, 2-oxoglutarate => 2-aminoadipate => lysine
+YBR115C  
+YDL131W  
+YDL182W  
+YDR234W  
+YGL202W  
+YIL094C  
+YIR034C  
+YJL200C  
+YNR050C  

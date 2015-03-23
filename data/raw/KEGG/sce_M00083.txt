@@ -1,0 +1,4 @@
+Fatty acid biosynthesis, elongation
+YER061C  
+YKL182W  
+YPL231W  

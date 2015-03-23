@@ -1,0 +1,5 @@
+Ornithine biosynthesis, glutamate => ornithine
+YER069W  
+YJL071W  
+YMR062C  
+YOL140W  

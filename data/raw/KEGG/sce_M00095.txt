@@ -1,0 +1,9 @@
+C5 isoprenoid biosynthesis, mevalonate pathway
+YLR450W  
+YML075C  
+YML126C  
+YMR208W  
+YMR220W  
+YNR043W  
+YPL028W  
+YPL117C  

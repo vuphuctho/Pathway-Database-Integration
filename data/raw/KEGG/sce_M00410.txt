@@ -1,0 +1,4 @@
+ESCRT-II complex
+YJR102C  
+YLR417W  
+YPL002C  

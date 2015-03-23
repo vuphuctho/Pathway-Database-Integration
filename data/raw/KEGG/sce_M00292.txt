@@ -1,0 +1,4 @@
+MRX complex
+YDR369C  
+YMR224C  
+YNL250W  

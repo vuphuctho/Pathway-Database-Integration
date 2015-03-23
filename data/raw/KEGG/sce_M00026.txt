@@ -1,0 +1,8 @@
+Histidine biosynthesis, PRPP => histidine
+YBR248C  
+YCL030C  
+YER055C  
+YFR025C  
+YIL020C  
+YIL116W  
+YOR202W  

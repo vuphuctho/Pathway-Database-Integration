@@ -1,0 +1,5 @@
+SCF-GRR1 complex
+YDL132W  
+YDR328C  
+YJR090C  
+YOL133W  

@@ -1,0 +1,5 @@
+Shikimate pathway, phosphoenolpyruvate + erythrose-4P => chorismate
+YBR249C  
+YDR035W  
+YDR127W  
+YGL148W  

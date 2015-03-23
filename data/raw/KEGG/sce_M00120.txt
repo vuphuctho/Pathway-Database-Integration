@@ -1,0 +1,6 @@
+Coenzyme A biosynthesis, pantothenate => CoA
+YDR196C  
+YDR531W  
+YGR277C  
+YIL083C  
+YKL088W  

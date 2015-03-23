@@ -1,0 +1,5 @@
+N-glycan precursor trimming
+YBR229C  
+YGL027C  
+YJR131W  
+YLR057W  

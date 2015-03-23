@@ -1,0 +1,6 @@
+DNA damage-induced cell cycle checkpoints
+YBL088C  
+YBR274W  
+YDL101C  
+YMR036C  
+YPL153C  

@@ -1,0 +1,9 @@
+Uridine monophosphate biosynthesis, glutamine (+ PRPP) => UMP
+YEL021W  
+YJL130C  
+YJR109C  
+YKL216W  
+YLR420W  
+YML106W  
+YMR271C  
+YOR303W  

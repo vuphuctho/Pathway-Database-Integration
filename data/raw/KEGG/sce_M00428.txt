@@ -1,0 +1,6 @@
+eIF4F complex
+YGL049C  
+YGR162W  
+YJL138C  
+YKR059W  
+YOL139C  

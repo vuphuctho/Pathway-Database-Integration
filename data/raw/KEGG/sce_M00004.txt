@@ -1,0 +1,15 @@
+Pentose phosphate pathway (Pentose phosphate cycle)
+YBR117C  
+YBR196C  
+YCR073W-A  
+YGR043C  
+YGR248W  
+YGR256W  
+YHR163W  
+YHR183W  
+YJL121C  
+YLR354C  
+YNL241C  
+YNR034W  
+YOR095C  
+YPR074C  

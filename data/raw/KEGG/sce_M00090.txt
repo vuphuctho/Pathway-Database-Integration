@@ -1,0 +1,4 @@
+Phosphatidylcholine (PC) biosynthesis, choline => PC
+YGR202C  
+YLR133W  
+YNL130C  

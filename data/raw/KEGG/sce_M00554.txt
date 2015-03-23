@@ -1,0 +1,4 @@
+Nucleotide sugar biosynthesis, galactose => UDP-galactose
+YBR018C  
+YBR020W  
+YDR009W  

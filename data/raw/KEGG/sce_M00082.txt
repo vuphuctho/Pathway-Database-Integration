@@ -1,0 +1,6 @@
+Fatty acid biosynthesis, initiation
+YKL182W  
+YMR207C  
+YNR016C  
+YOR221C  
+YPL231W  

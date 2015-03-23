@@ -1,0 +1,5 @@
+DNA polymerase alpha / primase complex
+YBL035C  
+YIR008C  
+YKL045W  
+YNL102W  

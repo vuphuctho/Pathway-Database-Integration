@@ -1,0 +1,5 @@
+Leucine biosynthesis, 2-oxoisovalerate => 2-oxoisocaproate
+YCL018W  
+YGL009C  
+YNL104C  
+YOR108W  

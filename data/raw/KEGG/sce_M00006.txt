@@ -1,0 +1,8 @@
+Pentose phosphate pathway, oxidative phase, glucose 6P => ribulose 5P
+YCR073W-A  
+YGR248W  
+YGR256W  
+YHR163W  
+YHR183W  
+YNL241C  
+YNR034W  

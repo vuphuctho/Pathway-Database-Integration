@@ -1,0 +1,5 @@
+GINS complex
+YDR013W  
+YDR489W  
+YJL072C  
+YOL146W  

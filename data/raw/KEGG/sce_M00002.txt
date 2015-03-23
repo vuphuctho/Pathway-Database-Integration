@@ -1,0 +1,18 @@
+Glycolysis, core module involving three-carbon compounds
+YAL038W  
+YCR012W  
+YDL021W  
+YDR050C  
+YGR192C  
+YGR254W  
+YHR174W  
+YJL052W  
+YJR009C  
+YKL152C  
+YKR043C  
+YMR323W  
+YOL056W  
+YOR283W  
+YOR347C  
+YOR393W  
+YPL281C  

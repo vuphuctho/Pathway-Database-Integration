@@ -1,0 +1,7 @@
+Cytochrome bc1 complex respiratory unit
+Q0105  
+Q0110  
+Q0115  
+Q0120  
+YEL024W  
+YOR065W  

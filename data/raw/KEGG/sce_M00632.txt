@@ -1,0 +1,5 @@
+Galactose degradation, Leloir pathway, galactose => alpha-D-glucose-1P
+YBR018C  
+YBR019C  
+YBR020W  
+YDR009W  

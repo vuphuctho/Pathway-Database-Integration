@@ -1,0 +1,5 @@
+Pyrimidine ribonucleotide biosynthesis, UMP => UDP/UTP,CDP/CTP
+YBL039C  
+YJR103W  
+YKL024C  
+YKL067W  

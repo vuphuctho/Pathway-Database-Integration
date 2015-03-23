@@ -1,0 +1,3 @@
+Polyamine biosynthesis, arginine => ornithine => putrescine
+YKL184W  
+YPL111W  

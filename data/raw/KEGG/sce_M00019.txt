@@ -1,0 +1,7 @@
+Valine/isoleucine biosynthesis, pyruvate => valine / 2-oxobutanoate => isoleucine
+YCL009C  
+YHR208W  
+YJR016C  
+YJR148W  
+YLR355C  
+YMR108W  

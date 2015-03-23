@@ -1,0 +1,6 @@
+PRPP biosynthesis, ribose 5P => PRPP
+YBL068W  
+YER099C  
+YHL011C  
+YKL181W  
+YOL061W  

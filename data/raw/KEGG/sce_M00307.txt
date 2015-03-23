@@ -1,0 +1,6 @@
+Pyruvate oxidation, pyruvate => acetyl-CoA
+YBR221C  
+YER178W  
+YFL018C  
+YNL071W  
+YPL017C  

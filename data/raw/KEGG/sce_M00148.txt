@@ -1,0 +1,8 @@
+Succinate dehydrogenase (ubiquinone)
+YDR178W  
+YJL045W  
+YKL141W  
+YKL148C  
+YLL041C  
+YLR164W  
+YMR118C  

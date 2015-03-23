@@ -1,0 +1,4 @@
+GABA (gamma-Aminobutyrate) shunt
+YBR006W  
+YGR019W  
+YMR250W  

@@ -1,0 +1,5 @@
+Proline biosynthesis, glutamate => proline
+YDR300C  
+YER023W  
+YHR033W  
+YOR323C  

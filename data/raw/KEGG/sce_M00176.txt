@@ -1,0 +1,6 @@
+Assimilatory sulfate reduction, sulfate => H2S
+YFR030W  
+YJR010W  
+YJR137C  
+YKL001C  
+YPR167C  

@@ -1,0 +1,12 @@
+N-glycan biosynthesis, high-mannose type
+YBR015C  
+YBR229C  
+YDR245W  
+YEL036C  
+YGL038C  
+YJL183W  
+YJR075W  
+YJR131W  
+YLR057W  
+YML115C  
+YPL050C  

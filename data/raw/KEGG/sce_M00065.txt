@@ -1,0 +1,9 @@
+GPI-anchor biosynthesis, core oligosaccharide
+YBR004C  
+YDR302W  
+YGL142C  
+YJL091C  
+YJR013W  
+YKL165C  
+YMR281W  
+YPL175W  

@@ -1,0 +1,11 @@
+Methionine salvage pathway
+YDR502C  
+YEL038W  
+YGL202W  
+YJR024C  
+YLR017W  
+YLR180W  
+YMR009W  
+YOL052C  
+YPR069C  
+YPR118W  

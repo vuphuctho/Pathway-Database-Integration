@@ -1,0 +1,7 @@
+Cell cycle - G2/M transition
+YBR160W  
+YGR108W  
+YGR203W  
+YJL187C  
+YMR036C  
+YPR119W  

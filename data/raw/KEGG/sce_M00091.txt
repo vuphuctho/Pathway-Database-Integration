@@ -1,0 +1,3 @@
+Phosphatidylcholine (PC) biosynthesis, PE => PC
+YGR157W  
+YJR073C  

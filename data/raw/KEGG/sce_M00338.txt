@@ -1,0 +1,3 @@
+Cysteine biosynthesis, homocysteine + serine => cysteine
+YAL012W  
+YGR155W  

@@ -1,0 +1,9 @@
+Guanine ribonucleotide biosynthesis IMP => GDP,GTP
+YAL038W  
+YDR454C  
+YHR216W  
+YKL067W  
+YLR432W  
+YML056C  
+YMR217W  
+YOR347C  

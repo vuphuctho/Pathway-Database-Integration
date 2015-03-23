@@ -1,0 +1,5 @@
+SCF-CDC4 complex
+YDL132W  
+YDR328C  
+YFL009W  
+YOL133W  

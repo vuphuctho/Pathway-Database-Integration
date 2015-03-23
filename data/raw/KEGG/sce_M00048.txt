@@ -1,0 +1,10 @@
+Inosine monophosphate biosynthesis, PRPP + glutamine => IMP
+YAR015W  
+YDR408C  
+YGL234W  
+YGR061C  
+YLR028C  
+YLR359W  
+YMR120C  
+YMR300C  
+YOR128C  

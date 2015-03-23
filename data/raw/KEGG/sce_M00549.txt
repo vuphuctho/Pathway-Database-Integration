@@ -1,0 +1,12 @@
+Nucleotide sugar biosynthesis, glucose => UDP-glucose
+YBR018C  
+YCL040W  
+YDR516C  
+YFR053C  
+YGL253W  
+YHL012W  
+YKL035W  
+YKL127W  
+YLR446W  
+YMR105C  
+YMR278W  

@@ -1,0 +1,5 @@
+C1-unit interconversion, eukaryotes
+YBR084W  
+YBR263W  
+YGR204W  
+YLR058C  

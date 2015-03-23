@@ -1,0 +1,6 @@
+DNA polymerase epsilon complex
+YBR278W  
+YDR121W  
+YJL065C  
+YNL262W  
+YPR175W  

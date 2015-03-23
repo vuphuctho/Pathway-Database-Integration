@@ -1,0 +1,9 @@
+Isoleucine biosynthesis, threonine => 2-oxobutanoate => isoleucine
+YCL009C  
+YCL064C  
+YER086W  
+YHR208W  
+YJR016C  
+YJR148W  
+YLR355C  
+YMR108W  

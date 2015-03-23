@@ -1,0 +1,9 @@
+Adenine ribonucleotide biosynthesis, IMP => ADP,ATP
+YAL038W  
+YDL166C  
+YDR226W  
+YER170W  
+YKL067W  
+YLR359W  
+YNL220W  
+YOR347C  

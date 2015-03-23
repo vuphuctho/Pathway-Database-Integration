@@ -1,0 +1,7 @@
+Pentose phosphate pathway, non-oxidative phase, fructose 6P => ribose 5P
+YBR117C  
+YGR043C  
+YJL121C  
+YLR354C  
+YOR095C  
+YPR074C  

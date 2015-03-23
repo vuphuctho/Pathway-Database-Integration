@@ -1,0 +1,6 @@
+Threonine biosynthesis, aspartate => homoserine => threonine
+YCR053W  
+YDR158W  
+YER052C  
+YHR025W  
+YJR139C  

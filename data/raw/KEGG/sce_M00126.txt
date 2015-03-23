@@ -1,0 +1,8 @@
+Tetrahydrofolate biosynthesis, GTP => THF
+YDR481C  
+YGR267C  
+YKL132C  
+YMR113W  
+YNL256W  
+YOR236W  
+YOR241W  

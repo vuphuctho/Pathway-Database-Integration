@@ -1,0 +1,10 @@
+N-glycosylation by oligosaccharyltransferase
+YDL232W  
+YEL002C  
+YGL022W  
+YGL226C-A  
+YJL002C  
+YML019W  
+YMR149W  
+YOR085W  
+YOR103C  

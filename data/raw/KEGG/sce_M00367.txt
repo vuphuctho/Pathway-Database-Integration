@@ -1,0 +1,4 @@
+C10-C20 isoprenoid biosynthesis, non-plant eukaryotes
+YJL167W  
+YPL069C  
+YPL117C  

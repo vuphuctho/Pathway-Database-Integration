@@ -1,0 +1,5 @@
+Serine biosynthesis, glycerate-3P => serine
+YER081W  
+YGR208W  
+YIL074C  
+YOR184W  

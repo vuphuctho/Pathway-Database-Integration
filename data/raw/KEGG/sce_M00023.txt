@@ -1,0 +1,6 @@
+Tryptophan biosynthesis, chorismate => tryptophan
+YDR007W  
+YDR354W  
+YER090W  
+YGL026C  
+YKL211C  

@@ -1,0 +1,7 @@
+Cell cycle - G1/S transition
+YAL040C  
+YBR160W  
+YKL112W  
+YMR199W  
+YOR083W  
+YPL256C  

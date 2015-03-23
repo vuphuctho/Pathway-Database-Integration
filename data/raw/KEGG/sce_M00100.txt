@@ -1,0 +1,4 @@
+Sphingosine degradation
+YDR294C  
+YLR260W  
+YOR171C  

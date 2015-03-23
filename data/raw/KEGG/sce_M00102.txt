@@ -1,0 +1,6 @@
+Ergocalciferol biosynthesis
+YGL012W  
+YLR056W  
+YML008C  
+YMR015C  
+YMR202W  

@@ -1,0 +1,10 @@
+Citrate cycle, first carbon oxidation, oxaloacetate => 2-oxoglutarate
+YCR005C  
+YDL066W  
+YLR174W  
+YLR304C  
+YNL009W  
+YNL037C  
+YNR001C  
+YOR136W  
+YPR001W  

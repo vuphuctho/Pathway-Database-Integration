@@ -1,0 +1,6 @@
+Ubiquinone biosynthesis, eukaryotes, 4-hydroxybenzoate => ubiquinone
+YGR255C  
+YML110C  
+YNR041C  
+YOL096C  
+YOR125C  

@@ -1,0 +1,5 @@
+Phosphatidylethanolamine (PE) biosynthesis, PA => PS => PE
+YBR029C  
+YER026C  
+YGR170W  
+YNL169C  

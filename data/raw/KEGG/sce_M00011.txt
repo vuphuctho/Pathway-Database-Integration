@@ -1,0 +1,18 @@
+Citrate cycle, second carbon oxidation, 2-oxoglutarate => oxaloacetate
+YDL078C  
+YDR148C  
+YDR178W  
+YFL018C  
+YGR244C  
+YIL125W  
+YJL045W  
+YKL085W  
+YKL141W  
+YKL148C  
+YLL041C  
+YLR164W  
+YMR118C  
+YOL126C  
+YOR142W  
+YPL017C  
+YPL262W  

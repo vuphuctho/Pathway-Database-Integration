@@ -1,0 +1,4 @@
+Phosphatidylethanolamine (PE) biosynthesis, ethanolamine => PE
+YDR147W  
+YGR007W  
+YHR123W  

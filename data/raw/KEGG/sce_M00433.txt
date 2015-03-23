@@ -1,0 +1,6 @@
+Lysine biosynthesis, 2-oxoglutarate => 2-oxoadipate
+YDL131W  
+YDL182W  
+YDR234W  
+YIL094C  
+YJL200C  

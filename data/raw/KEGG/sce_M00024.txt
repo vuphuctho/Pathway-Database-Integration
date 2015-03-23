@@ -1,0 +1,4 @@
+Phenylalanine biosynthesis, chorismate => phenylalanine
+YGL202W  
+YNL316C  
+YPR060C  

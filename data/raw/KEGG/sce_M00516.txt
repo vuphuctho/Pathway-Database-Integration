@@ -1,0 +1,5 @@
+SLN1-YPD1-SSK1/SKN7 (osmosensing) two-component regulatory system
+YDL235C  
+YHR206W  
+YIL147C  
+YLR006C  
