@@ -32,8 +32,7 @@ public class WebScraper {
 		}
 	}
 	
-	public static void main(String[] args) {
-		// scraping pathway data of S.cerevisiae from KEGG Database
+	public static void scrapKEGG() {
 		Document doc;
 		try {
 			// http protocol
@@ -71,5 +70,39 @@ public class WebScraper {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} 
+	}
+	
+	public static void scrapBioCyc() {
+		Document doc;
+		try {
+			// http protocol
+			doc = Jsoup.connect("http://biocyc.org/YEAST/pathway-genes?object=PWY-5143").get();
+			System.out.println("Title : " + doc.title());
+			
+			/* get all pathway links */
+			// get all div possibly containing pathways
+			Elements navBoxes = doc.select("a[href]");
+			for (Element e : navBoxes) {
+				System.out.println(" Text : " + e.text());
+			}
+			/*Elements divs = doc.select("div.ygtvitem");
+			for (Element div : divs) {
+				// check if the div is leaf (no children divs)
+				if (div.select("div.ygtvchildren").size()==0) {
+					// grab href link 
+					Element pathway = div.select("a[href]").first();
+					System.out.println(" Text : " + pathway.text());
+				}
+			}*/
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void main(String[] args) {
+		// scraping pathway data of S.cerevisiae from KEGG Database
+		// WebScraper.scrapKEGG();
+		// scraping pathway data of S.cerevisiae from BioCyc
+		WebScraper.scrapBioCyc();
 	}
 }
