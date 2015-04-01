@@ -14,12 +14,17 @@ public class DatabaseIntegration {
 	public void matchByName() {
 		List<String> db1 = loadPathway(dir1);
 		List<String> db2 = loadPathway(dir2);
-		//brute force: match db1 and db2
+		List<List<Double>> scores = new ArrayList<List<Double>>();
+		//brute force: text match db1 and db2
 		for (String name1 : db1) {
+			List<Double> row_score = new ArrayList<Double>();
 			for (String name2 : db2) {
-				
+				row_score.add((double)TextMatcher.LCS(name1, name2).length());
 			}
+			scores.add(row_score);
 		}
+		// normalize scores for further validation/comparison
+		scores = normalize(scores);
 	}
 	
 	// load pathway.txt files inside the 2 input directories
@@ -40,12 +45,30 @@ public class DatabaseIntegration {
 		return result;
 	}
 	
-	// load pathway_gene.txt files
-	public void loadPathwayGene() {
-		
+	// NOTE: always normalize scores after computing
+	// normalize scores using feature scaling
+	private List<List<Double>> normalize(List<List<Double>> scores) {
+		List<List<Double>> normalized = new ArrayList<List<Double>>();
+		double min = scores.get(0).get(0); double max = scores.get(0).get(0);
+		for (List<Double> row_score : scores) {
+			for (double score : row_score) {
+				if (score>max) max=score;
+				if (score<min) min=score;
+			}
+		}
+		if (max!=min) {
+			for (List<Double> row_score : scores) {
+				List<Double> row = new ArrayList<Double>();
+				for (double score : row_score) {
+					row.add((score-min)/(max-min));
+				}
+				normalized.add(row);
+			}
+		} else {
+			normalized = scores;
+		}
+		return normalized;
 	}
 	
-	public static void main(String[] args) {
-		
-	}
+	public static void main(String[] args) {}
 }
