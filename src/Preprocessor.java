@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.Map.Entry;
 import java.io.*;
 
 public class Preprocessor {
@@ -33,7 +34,10 @@ public class Preprocessor {
 		HashSet<String> pathway = new HashSet<String>();
 		HashMap<String, List<String>> pathway_gene = new HashMap<String,
 																List<String>>();
+		HashMap<String, List<String>> pathway_genepair = new HashMap<String,
+																List<String>>();
 		File folder = new File(dir);
+		HashSet<String> types = new HashSet<String>();
 		for (File file : folder.listFiles()) {
 			if (file.isFile()) {
 				// get pathway name from file name
@@ -47,6 +51,10 @@ public class Preprocessor {
 					List<String> genes = new ArrayList<String>();
 					while ((line=br.readLine())!=null) {
 						String[] elem = line.split("\\s+");
+						if (elem.length==2) { types.add(elem[1]);
+							if (elem[1].equals("Uniprot-TrEMBL")) 
+								System.out.println("	" + elem[0]);
+						}
 						if (elem.length==2 && elem[1].equals("SGD")) {
 							// get systematic name from SGDID
 							// System.out.println(elem[0] + " " + sgd_gene.get(elem[0]));
@@ -56,13 +64,38 @@ public class Preprocessor {
 						}
 					}
 					pathway_gene.put(name, genes);
+					br.close(); fr.close();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		}
+		for (String type : types) {
+			System.out.println(type);
+		}
+		
+		for (String p : pathway) {
+			List<String> genes = pathway_gene.get(p);
+			for (String gene_1 : genes) {
+				for (String gene_2 : genes) {
+					if (!gene_1.equals(gene_2)) {
+						if (pathway_genepair.containsKey(p)) {
+							List<String> gp = pathway_genepair.get(p);
+							gp.add(gene_1 + " " + gene_2);
+							pathway_genepair.put(p, gp);
+						} else {
+							List<String> gp = new ArrayList<String>();
+							gp.add(gene_1 + " " + gene_2);  
+							pathway_genepair.put(p, gp);
+						}
+					}
+				}
+			}
+		}
+		
 		writePathway(outp, pathway);
 		writePathwayGene(outp, pathway_gene);
+		writePathwayGenePair(outp, pathway_genepair);
 	}
 	
 	public void loadKEGG() {
@@ -70,6 +103,8 @@ public class Preprocessor {
 		String outp = "data\\preprocessed\\KEGG\\";
 		HashSet<String> pathway = new HashSet<String>();
 		HashMap<String, List<String>> pathway_gene = new HashMap<String,
+																List<String>>();
+		HashMap<String, List<String>> pathway_genepair = new HashMap<String, 
 																List<String>>();
 		File folder = new File(inp);
 		for (File file : folder.listFiles()) {
@@ -96,19 +131,43 @@ public class Preprocessor {
 				}
 			}
 		}
+		for (String p : pathway) {
+			List<String> genes = pathway_gene.get(p);
+			for (String gene_1 : genes) {
+				for (String gene_2 : genes) {
+					if (!gene_1.equals(gene_2)) {
+						if (pathway_genepair.containsKey(p)) {
+							List<String> gp = pathway_genepair.get(p);
+							gp.add(gene_1 + " " + gene_2);
+							pathway_genepair.put(p, gp);
+						} else {
+							List<String> gp = new ArrayList<String>();
+							gp.add(gene_1 + " " + gene_2);  
+							pathway_genepair.put(p, gp);
+						}
+					}
+				}
+			}
+		}
+		
 		writePathway(outp, pathway);
 		writePathwayGene(outp, pathway_gene);
+		writePathwayGenePair(outp, pathway_genepair);
 	}
 	
 	public void loadIntPathway() {
 		HashSet<String> pathway = new HashSet<String>();
 		HashMap<String, List<String>> pathway_gene = new HashMap<String,
 																List<String>>();
-		String inp = "data\\raw\\intpathway\\cerevisiaeIntPathGenes";
+		HashMap<String, List<String>> pathway_genepair = new HashMap<String, 
+																List<String>>();
+		String inp1 = "data\\raw\\intpathway\\cerevisiaeIntPathGenes";
+		String inp2 = "data\\raw\\intpathway\\cerevisiaeIntPathGenePairs";
 		String outp = "data\\preprocessed\\intpathway\\";
-		File file = new File(inp);
+		// load pathway gene
+		File file1 = new File(inp1);
 		try {
-			FileReader fr = new FileReader(file.getAbsoluteFile());
+			FileReader fr = new FileReader(file1.getAbsoluteFile());
 			BufferedReader br = new BufferedReader(fr);
 			String line = "";
 			while ((line=br.readLine())!=null) {
@@ -119,7 +178,9 @@ public class Preprocessor {
 				String name = getPathwayName(elem.subList(0, elem.size()-1));
 				pathway.add(name);
 				if (!pathway_gene.containsKey(name)) {
-					pathway_gene.put(name, new ArrayList<String>());
+					List<String> genes = new ArrayList<String>();
+					genes.add(elem.get(elem.size()-1));
+					pathway_gene.put(name, genes);
 				} else {
 					List<String> genes = pathway_gene.get(name);
 					genes.add(elem.get(elem.size()-1));
@@ -130,8 +191,39 @@ public class Preprocessor {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		//load pathway gene pairs
+		File file2 = new File(inp2);
+		try {
+			FileReader fr = new FileReader(file2.getAbsoluteFile());
+			BufferedReader br = new BufferedReader(fr);
+			String line = "";
+			while ((line=br.readLine())!=null) {
+				List<String> elem = new ArrayList<String>(Arrays.asList(line.split("\\s+")));
+				// remove unneccessary info
+				elem.remove("KEGG"); elem.remove("WikiPathways"); elem.remove("BioCyc");
+				// get name of pathway
+				String name = getPathwayName(elem.subList(3, elem.size()));
+				// get gene pair
+				String pair = elem.get(0) + " " + elem.get(1);
+				if (!pathway_genepair.containsKey(name)) {
+					List<String> pairs = new ArrayList<String>();
+					pairs.add(pair);
+					pathway_genepair.put(name, pairs);
+				} else {
+					List<String> pairs = pathway_genepair.get(name);
+					pairs.add(pair);
+					pathway_genepair.put(name, pairs);
+				}
+			}
+			br.close(); fr.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		writePathway(outp, pathway);
 		writePathwayGene(outp, pathway_gene);
+		writePathwayGenePair(outp, pathway_genepair);
 	}
 	
 	private String getPathwayName(List<String> list) {
@@ -172,6 +264,26 @@ public class Preprocessor {
 				// and turn to lower case
 				String shortname = name.replaceAll(" ", "_").toLowerCase();
 				for (String gene : p_g.get(name)) {
+					bw.write(shortname + " " + gene + "\n"); 
+				}
+			}
+			bw.close(); fw.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void writePathwayGenePair(String outp, HashMap<String, List<String>> p_gp) {
+		File file = new File(outp + "pathway_genepair.txt");
+		try {
+			if (!file.exists()) file.createNewFile();
+			FileWriter fw = new FileWriter(file.getAbsoluteFile());
+			BufferedWriter bw = new BufferedWriter(fw);
+			for (String name : p_gp.keySet()) {
+				// replace space with underscore
+				// and turn to lower case
+				String shortname = name.replaceAll(" ", "_").toLowerCase();
+				for (String gene : p_gp.get(name)) {
 					bw.write(shortname + " " + gene + "\n"); 
 				}
 			}
