@@ -122,12 +122,35 @@ public class WebScraper {
  		return result;
 	}
 	
+	public static String scrapUniprot(String id) {
+		String result = "";
+		Document doc;
+		try {
+			doc = Jsoup.connect("http://www.uniprot.org/uniprot/" + id).timeout(0).get();
+			Elements tables = doc.select("table.databaseTable");
+			for (Element table :tables) {
+				if (table.className().equals("databaseTable ORGANISM")) {
+					Element td = table.select("td").get(1);
+					if (td!=null) {
+						result = td.text();
+						break;
+					}
+				} 
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
 	public static void main(String[] args) {
 		// scraping pathway data of S.cerevisiae from KEGG Database
 		// WebScraper.scrapKEGG();
 		// scraping pathway data of S.cerevisiae from BioCyc
 		// WebScraper.scrapBioCyc();
 		// test scraping data from NCBI
-		System.out.println(WebScraper.scrapNCBI("856891"));
+		// System.out.println(WebScraper.scrapNCBI("856891"));
+		// test scraping data from Uniprot
+		System.out.println(WebScraper.scrapUniprot("P19525"));
 	}
 }

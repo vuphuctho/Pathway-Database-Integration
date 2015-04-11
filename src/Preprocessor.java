@@ -27,7 +27,7 @@ public class Preprocessor {
 		} 
 	}
 	
-	public void loadWikiPathway() {
+	public void loadWikiPathway() {	
 		String dir = "data\\raw\\wikipathways";
 		String outp = "data\\preprocessed\\wikipathways\\";
 		HashSet<String> pathway = new HashSet<String>();
@@ -66,7 +66,11 @@ public class Preprocessor {
 									genes.add(WebScraper.scrapNCBI(elem[0]));
 							} else if (elem[1].equals("Uniprot-TrEMBL")) {
 								// scrap gene name from Uniprot
-							}
+								String gene = WebScraper.scrapUniprot(elem[0]);
+								if (gene.split("\\s").length==1) {
+									genes.add(gene.toUpperCase().substring(0, gene.length()-1));
+								}
+							}	
 						}
 					}
 					pathway_gene.put(name, genes);
@@ -99,9 +103,9 @@ public class Preprocessor {
 			}
 		}
 		
-		writePathway(outp, pathway);
-		writePathwayGene(outp, pathway_gene);
-		writePathwayGenePair(outp, pathway_genepair);
+		//writePathway(outp, pathway);
+		//writePathwayGene(outp, pathway_gene);
+		//writePathwayGenePair(outp, pathway_genepair);
 	}
 	
 	public void loadKEGG() {
