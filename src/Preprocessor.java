@@ -1,5 +1,4 @@
 import java.util.*;
-import java.util.Map.Entry;
 import java.io.*;
 
 public class Preprocessor {
@@ -51,15 +50,22 @@ public class Preprocessor {
 					List<String> genes = new ArrayList<String>();
 					while ((line=br.readLine())!=null) {
 						String[] elem = line.split("\\s+");
-						if (elem.length==2) { types.add(elem[1]);
-							if (elem[1].equals("Uniprot-TrEMBL")) 
-								System.out.println("	" + elem[0]);
-						}
-						if (elem.length==2 && elem[1].equals("SGD")) {
-							// get systematic name from SGDID
-							// System.out.println(elem[0] + " " + sgd_gene.get(elem[0]));
-							if (sgd_gene.containsKey(elem[0])) {
-								genes.add(sgd_gene.get(elem[0]));
+						if (elem.length>=2) {
+							types.add(elem[1]);
+							if (elem[1].equals("SGD")) {
+								// get systematic name from SGDID
+								// System.out.println(elem[0] + " " + sgd_gene.get(elem[0]));
+								if (sgd_gene.containsKey(elem[0])) {
+									genes.add(sgd_gene.get(elem[0]));
+								}
+							} else if (elem[1].equals("Ensembl")) {
+								genes.add(elem[0]);
+							} else if (elem[1].equals("Entrez")) {
+								// scrap gene name from NBCI
+								if (elem[0].length()!=0)
+									genes.add(WebScraper.scrapNCBI(elem[0]));
+							} else if (elem[1].equals("Uniprot-TrEMBL")) {
+								// scrap gene name from Uniprot
 							}
 						}
 					}
@@ -70,12 +76,12 @@ public class Preprocessor {
 				}
 			}
 		}
-		for (String type : types) {
-			System.out.println(type);
-		}
 		
 		for (String p : pathway) {
 			List<String> genes = pathway_gene.get(p);
+			if (genes.isEmpty()) {
+				System.out.println("		" + p);
+			}
 			for (String gene_1 : genes) {
 				for (String gene_2 : genes) {
 					if (!gene_1.equals(gene_2)) {
@@ -300,8 +306,8 @@ public class Preprocessor {
 		// pre-process Wikipathway database
 		prep.loadWikiPathway();
 		// pre-process KEGG database
-		prep.loadKEGG();
+		//prep.loadKEGG();
 		// preprocess intPathway database
-		prep.loadIntPathway();
+		//prep.loadIntPathway();
 	}
 }

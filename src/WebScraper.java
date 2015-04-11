@@ -99,10 +99,35 @@ public class WebScraper {
 		}
 	}
 	
+	public static String scrapNCBI(String geneId) {
+		String result = "";
+		Document doc;
+		try {
+			doc = Jsoup.connect("http://www.ncbi.nlm.nih.gov/gene/" + geneId).timeout(0).get();
+			Element dl = doc.select("dl#summaryDl").first();
+			Elements dt = dl.select("dt");
+			Elements dd = dl.select("dd");
+			for (int i=0; i< dd.size(); i++) {
+				if (dt.get(i).text().compareTo("Locus tag")==0) {
+					result = dd.get(i).text();
+					break;
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+			System.out.println("CHECK THIS " + geneId + " " + geneId.length());
+		}
+ 		return result;
+	}
+	
 	public static void main(String[] args) {
 		// scraping pathway data of S.cerevisiae from KEGG Database
 		// WebScraper.scrapKEGG();
 		// scraping pathway data of S.cerevisiae from BioCyc
-		WebScraper.scrapBioCyc();
+		// WebScraper.scrapBioCyc();
+		// test scraping data from NCBI
+		System.out.println(WebScraper.scrapNCBI("856891"));
 	}
 }

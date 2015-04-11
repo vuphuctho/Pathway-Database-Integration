@@ -19,12 +19,12 @@ public class DatabaseIntegration {
 		for (String name1 : db1) {
 			List<Double> row_score = new ArrayList<Double>();
 			for (String name2 : db2) {
-				row_score.add((double)TextMatcher.LCS(name1, name2).length());
+				row_score.add((double)LCS(name1, name2).length());
 			}
 			scores.add(row_score);
 		}
 		// normalize scores for further validation/comparison
-		scores = normalize(scores);
+		// scores = normalize(scores);
 	}
 	
 	// load pathway.txt files inside the 2 input directories
@@ -68,6 +68,43 @@ public class DatabaseIntegration {
 			normalized = scores;
 		}
 		return normalized;
+	}
+	
+	/*
+	 * Input: two strings str1 and str2
+	 * Output: their longest common subsequence
+	 */
+	private String LCS(String str1, String str2) {
+		String result = "";
+		int n = str1.length(); 
+		int m = str2.length();
+		
+		int[][] opt = new int[n+1][m+1];
+		
+		for (int i=n-1;i>=0; i--) {
+			for (int j=m-1; j>=0; j--) {
+				// score for match = 1; insert/delete = 0
+				if (str1.charAt(i)==str2.charAt(j)) {
+					opt[i][j] = opt[i+1][j+1]+1;
+				} else {
+					opt[i][j] = Math.max(opt[i+1][j], opt[i][j+1]);
+				}
+			}
+		}
+		
+		int i=0; int j=0;
+		while (i<n && j<m) {
+			if (str1.charAt(i)==str2.charAt(j)) {
+				result += str1.charAt(i);
+				i++; j++;
+			} else if (opt[i+1][j]>=opt[i][j+1]) {
+				i++;
+			} else {
+				j++;
+			}
+		}
+		 
+		return result;
 	}
 	
 	public static void main(String[] args) {}
