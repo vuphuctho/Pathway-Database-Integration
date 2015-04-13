@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Objects;
@@ -68,23 +69,17 @@ public class PathInt {
 			words = line.split(" ");
 			Integer index1 = getGeneIndex(words[1]),
 					index2 = getGeneIndex(words[2]);
-			if (lastpw == null) {
+			if (lastpw == null || (!lastpw.equals(words[0]))) {
 				// first time
 				lastpw = words[0];
-				pairs.add(new Pair<Integer,Integer>(index1,index2));
-			} else if (lastpw.equals(words[0])) {
-				// same pathway
-				pairs.add(new Pair<Integer,Integer>(index1,index2));
+				gpair.put(lastpw, new Vector<Pair<Integer,Integer>>());
+				gpair.get(lastpw).add(new Pair<Integer,Integer>(index1,index2));
 			} else {
-				// new pathway
-				gpair.put(lastpw, pairs);
-				lastpw = words[0];
-				pairs.clear(); pairs.add(new Pair<Integer,Integer>(index1,index2));
+				// same pathway
+				gpair.get(lastpw).add(new Pair<Integer,Integer>(index1,index2));
 			}
 		}
 		
-		// Put last pathway
-		gpair.put(lastpw,pairs);
 		fin.close();
 		
 		return gpair;
@@ -97,28 +92,22 @@ public class PathInt {
 		
 		// Initialize last pathways read 
 		String lastpw = null, line, words[];
-		Vector <Integer> genes = new Vector <Integer> ();
 		
 		while ((line = fin.readLine())!= null) {
+			
 			words = line.split(" ");
 			Integer index = getGeneIndex(words[1]);
-			if (lastpw == null) {
+			if ((lastpw == null) || (!lastpw.equals(words[0]))) {
 				// first time
 				lastpw = words[0];
-				genes.add(index);
-			} else if (lastpw.equals(words[0])) {
-				// same pathway
-				genes.add(index);
+				glist.put(lastpw, new Vector<Integer>());
+				glist.get(lastpw).add(index);
 			} else {
-				// new pathway
-				glist.put(lastpw, genes);
-				lastpw = words[0];
-				genes.clear(); genes.add(index);
-			}
+				// same pathway
+				glist.get(lastpw).add(index);
+			} 
 		}
 		
-		// Put last pathway
-		glist.put(lastpw,genes);
 		fin.close();
 		
 		return glist;
@@ -137,10 +126,10 @@ public class PathInt {
 		// Get intersection size of 2 arrays (O(max(n1,n2)))
 		HashSet<Integer> hash 	= new HashSet<Integer>();
 		for (Integer i : genes1) hash.add(i);
-		for (Integer j : genes2) if (hash.contains(j)) n_intersect++; 
+		for (Integer j : genes2) if (hash.contains(j)) n_intersect++;
 		
 		HypergeometricDistribution hyp = new HypergeometricDistribution(geneCount,(int)genes1.size(),(int)genes2.size());
-		Double pvalue = hyp.cumulativeProbability(n_intersect);
+		Double pvalue = 1 - hyp.cumulativeProbability(n_intersect);
 		
 		return pvalue;
 	}
@@ -158,11 +147,10 @@ public class PathInt {
 		for (Pair <Integer,Integer> i : pairs1) hash.add(i);
 		for (Pair <Integer,Integer> j : pairs2) if (hash.contains(j)) n_intersect++;
 		
-		
 		genePairCount = geneCount * (geneCount-1) / 2;
 		
 		HypergeometricDistribution hyp = new HypergeometricDistribution(genePairCount,(int)pairs1.size(),(int)pairs2.size());
-		Double pvalue = hyp.cumulativeProbability(n_intersect);
+		Double pvalue = 1 - hyp.cumulativeProbability(n_intersect);
 		
 		return pvalue;
 	}
@@ -179,13 +167,18 @@ public class PathInt {
 		gpair1 = getPairList(gp1);
 		gpair2 = getPairList(gp2);
 		
+		FileWriter fw = new FileWriter("output.txt");
+		
 		scoreArr = new Double[(int)plist1.size()][(int)plist2.size()][2];
 		for (int i = 0; i < plist1.size(); i++) {
 			for (int j = 0; j < plist2.size(); j++) {
 				scoreArr[i][j][0] = geneAgreementScore(plist1.get(i),plist2.get(j));
 				scoreArr[i][j][1] = genePairAgreementScore(plist1.get(i),plist2.get(j));
+				fw.write(i + " " + j + " : " + scoreArr[i][j][0] + " " + scoreArr[i][j][1] + "\n");
 			}
 		}
+		
+		fw.close();
 	}
 }
 
