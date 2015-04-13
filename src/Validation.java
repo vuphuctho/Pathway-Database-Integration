@@ -1,5 +1,5 @@
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.util.*;
 
 import com.opencsv.*;
 /*
@@ -18,6 +18,7 @@ public class Validation {
 												input_dir + "wikipathways\\pathway_genepair.txt"};
 	private PathInt pathint;
 	private TextMatch textmatch;
+	private Double[][] scores;
 	
 	public Validation(String database1, String database2) {
 		int index1 = getDbIndex(database1);
@@ -55,6 +56,38 @@ public class Validation {
 		return -1;
 	}
 	
+	private void calculateScore(List<Double> weightSet) {
+		scores = new Double[PathInt.plist1.size()][PathInt.plist2.size()];
+		for (int i=0; i<PathInt.plist1.size(); i++) {
+			for (int j=0; j<PathInt.plist2.size(); j++) {
+				String pathway1 = PathInt.plist1.get(i);
+				String pathway2 = PathInt.plist2.get(j);
+				double normalizedLCS = textmatch.getNormalizedScore(pathway1, pathway2);
+				double geneAgreement = PathInt.scoreArr[i][j][0];
+				double genePairAgreement = PathInt.scoreArr[i][j][1];
+				scores[i][j] = weightSet.get(0) + weightSet.get(1) * geneAgreement 
+							+ weightSet.get(2) * genePairAgreement 
+							+ weightSet.get(3) * normalizedLCS;
+			}
+		}
+	}
+	
+	public List<Double> getTopHundred(List<Double> weightSet) {
+		// calculate scores based on weight set
+		calculateScore(weightSet);
+		// get a sorted list
+		List<Double> sortedScores = new ArrayList<Double>();
+		for (int i=0; i<scores.length; i++) {
+			for (int j=0; j<scores[0].length; j++) {
+				sortedScores.add(scores[i][j]);
+			}
+		} 
+		Collections.sort(sortedScores);
+		List<Double> topHundred = sortedScores.subList(0, 100);
+		
+		return topHundred;
+	}
+	
 	public void writeToCSV(String db1, String db2) {
 		String out = "data\\result\\" + db1.toLowerCase() + "_" + db2.toLowerCase() + ".csv";
 		try {
@@ -70,6 +103,36 @@ public class Validation {
 					entry[2] = String.format("%.0f", textmatch.getLCSScore(entry[0], entry[1]));
 					entry[3] = String.format("%.3f", PathInt.scoreArr[i][j][0]); 
 					entry[4] = String.format("%.3f", PathInt.scoreArr[i][j][1]);
+					writer.writeNext(entry);
+				}
+			}
+			
+			writer.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+	}
+	
+	public void writeToCSV(String db1, String db2, List<Double> weightSet) {
+		String out = "data\\resultGA\\" + db1.toLowerCase() + "_" + db2.toLowerCase() + ".csv";
+		try {
+			calculateScore(weightSet);
+			CSVWriter writer = new CSVWriter(new FileWriter(out));
+			String[] w_set = {"Weight set: ", weightSet.toString()};
+			writer.writeNext(w_set);
+			String[] attr = {db1, db2, "LCS", "Normalized LCS" ,"Gene Agreement", "GenePair Agreement", "Score"};
+			writer.writeNext(attr);
+			
+			for (int i=0; i<PathInt.plist1.size(); i++) {
+				for (int j=0; j<PathInt.plist2.size(); j++) {
+					String[] entry = new String[7];
+					entry[0] = PathInt.plist1.get(i);
+					entry[1] = PathInt.plist2.get(j);
+					entry[2] = String.format("%.0f", textmatch.getLCSScore(entry[0], entry[1]));
+					entry[3] = String.format("%.3f", textmatch.getNormalizedScore(entry[0], entry[1]));
+					entry[4] = String.format("%.3f", PathInt.scoreArr[i][j][0]); 
+					entry[5] = String.format("%.3f", PathInt.scoreArr[i][j][1]);
+					entry[6] = String.format("%.3f", scores[i][j]);
 					writer.writeNext(entry);
 				}
 			}

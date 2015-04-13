@@ -1,15 +1,18 @@
 import java.util.*;
 
 public class GeneticAlg {
-	private static double cutoff_threshold = 0.5;
 	private static double mutationRate = 0.015;
 	private static double geneMutationRate = 0.05;
 	private static double min_average = 0.8;
-	private static int population_size = 8;
+	private static int max_iteration = 100;
+	private static int population_size = 16;
 	private static Population population;
+	private static String database1;
+	private static String database2;
 	
 	public static void randomizePopulation() {
 		population = new Population(population_size, true);
+		FitnessCal.setDatabases(database1, database2);
 	}
 	
 	public static Individual roundWheelSelection() {
@@ -61,13 +64,13 @@ public class GeneticAlg {
 	}
 	
 	public static boolean isSatisfied() {
-		return population.getAverageFitnessScore() >= min_average;
+		return population.getNormalizedFitnessScore() >= min_average;
 	}
 	
 	public static void evolvePopulation() {
-		// initialize a population and randomize their genes
-		randomizePopulation();
+		int count = 0;
 		do {
+			count ++;
 			Population new_population = new Population(population.getSize(), false);
 			// keep the best individual of previous generation
 			new_population.setIndividual(0, population.getFitness());
@@ -85,11 +88,26 @@ public class GeneticAlg {
 				new_population.setIndividual(i, mutate(individual));
 			}
 			population = new_population;
-		} while (!isSatisfied());
+		} while (!isSatisfied() && count <max_iteration);
+		
+		System.out.println(population.getAverageFitnessScore());
+		// record best finest data
+		Individual best = population.getFitness();
+		System.out.println(	best.getWeight(0) + " " + best.getWeight(1) + " " + 
+							best.getWeight(2) + " " + best.getWeight(3));
+		FitnessCal.writeToCSV(best);
 	}
 	
 	public static void main (String[] args) {
-		
+		try {
+			database1 = args[0];
+			database2 = args[1];
+			// initialize a population and randomize their genes
+			randomizePopulation();
+			evolvePopulation();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
 
@@ -114,25 +132,16 @@ class Population {
 		return individuals[index];
 	}
 	
-	public Individual getFitnessIndividual() {
-		Individual fitness = getIndividual(0);
-		double max = fitness.getFitness();
+	public double getAverageFitnessScore() {
+		double sum = 0.0;
 		for (int i=0; i<getSize(); i++) {
-			if (max<=getIndividual(i).getFitness()) {
-				fitness = getIndividual(i);
-				max = fitness.getFitness();
-			}
-				
+			sum += getIndividual(i).getFitness();
 		}
-		return fitness;
+		return sum/getSize();
 	}
 	
-	public double getAverageFitnessScore() {
-		double average = 0.0;
-		for (int i=0; i<getSize(); i++) {
-			average += getIndividual(i).getFitness();
-		}
-		return average/getSize();
+	public double getNormalizedFitnessScore() {
+		return getAverageFitnessScore()/getFitness().getFitness();
 	}
 	
 	public int getSize() {
@@ -155,9 +164,9 @@ class Population {
 }
 
 class Individual {
-	static int defaultLength = 3; // number of weights
+	static int defaultLength = 4; // number of weights
 	private double[] weights = new double[defaultLength];
-	private double fitness = 0; // fitness, i.e. average score of top 100 matched pairs 
+	private double fitness = 0; // fitness, i.e. average score of top 100 matched pairs
 	
 	// create random individual
 	public void generateIndividual() {
@@ -182,7 +191,36 @@ class Individual {
 }
 
 class FitnessCal {
+	private static String database1, database2;
+	private static Validation validation;
+	
+	public static void setDatabases(String _db1, String _db2) {
+		database1 = _db1;
+		database2 = _db2;
+		validation = new Validation(database1, database2);
+	}
+	
 	public static double getFitness(Individual individual) {
-		return 0.0;
+		List<Double> weightSet = new ArrayList<Double>();
+		for (int i=0; i<individual.getSize(); i++) {
+			weightSet.add(individual.getWeight(i));
+		}
+		// calculate score given weight set
+		// and extract top 100 highest scores
+		List<Double> topHundred = validation.getTopHundred(weightSet);
+		// calculate average score of topHundred
+		double sum = 0.0;
+		for (double val : topHundred) {
+			sum += val;
+		}
+		return sum/topHundred.size();
 	} 
+	
+	public static void writeToCSV(Individual individual) {
+		List<Double> weightSet = new ArrayList<Double>();
+		for (int i=0; i<individual.getSize(); i++) {
+			weightSet.add(individual.getWeight(i));
+		}
+		validation.writeToCSV(database1, database2, weightSet);
+	}
 }

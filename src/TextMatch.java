@@ -7,6 +7,7 @@ public class TextMatch {
 	private List<String> db1;
 	private List<String> db2;
 	private List<List<Double>> scores;
+	private List<List<Double>> normalized_scores;
 	
 	public TextMatch(String _dir1, String _dir2) {
 		this.dir1 = _dir1;
@@ -14,6 +15,7 @@ public class TextMatch {
 		db1 = new ArrayList<String>();
 		db2 = new ArrayList<String>();
 		scores = new ArrayList<List<Double>>();
+		normalized_scores = new ArrayList<List<Double>>();
 	}
 	
 	// matching 2 databases using text matching (LCS)
@@ -29,7 +31,7 @@ public class TextMatch {
 			scores.add(row_score);
 		}
 		// normalize scores for further validation/comparison
-		// scores = normalize(scores);
+		normalized_scores = normalize(scores);
 	}
 	
 	// load pathway.txt files inside the 2 input directories
@@ -117,6 +119,17 @@ public class TextMatch {
 		int j = db2.indexOf(pathway2);
 		try {
 			return this.scores.get(i).get(j);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
+	
+	public double getNormalizedScore(String pathway1, String pathway2) {
+		int i = db1.indexOf(pathway1);
+		int j = db2.indexOf(pathway2);
+		try {
+			return this.normalized_scores.get(i).get(j);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
