@@ -25,9 +25,6 @@ public class PathInt {
 			System.out.println("Usage : <pathway list 1> <pathway gene list 1> <gene pair list 1>" 
 							 		+ " <pathway list 2> <pathway gene list 2> <gene pair list 2>");
 		} else try {
-			allGenes 		= new TreeMap <String, Integer>();
-			geneCount 		= 0;
-			genePairCount 	= 0;
 			new PathInt(args[0],args[1],args[2],args[3],args[4],args[5]);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -131,6 +128,9 @@ public class PathInt {
 		// Acquire 2 gene lists
 		Vector <Integer> genes1 = glist1.get(pathway1),
 						 genes2 = glist2.get(pathway2);
+		// avoid null vector
+		if (genes1 == null) genes1 = new Vector<Integer>();
+		if (genes2 == null) genes2 = new Vector<Integer>();
 		// Intersection size
 		int n_intersect = 0;
 		
@@ -148,7 +148,9 @@ public class PathInt {
 	public static Double genePairAgreementScore(String pathway1, String pathway2) {
 		Vector < Pair <Integer,Integer> > pairs1 = gpair1.get(pathway1),
 										  pairs2 = gpair2.get(pathway2);
-		
+		// avoid null vector
+		if (pairs1 == null) pairs1 = new Vector < Pair<Integer, Integer> >();
+		if (pairs2 == null) pairs2 = new Vector < Pair <Integer,Integer> >();
 		int n_intersect = 0;
 		
 		HashSet< Pair <Integer,Integer> > hash = new HashSet < Pair <Integer,Integer> >();
@@ -165,8 +167,11 @@ public class PathInt {
 		return pvalue;
 	}
 	
-	public PathInt(String pw1, String ge1, String gp1, String gp2, String pw2, String ge2) 
+	public PathInt(String pw1, String ge1, String gp1, String pw2, String ge2, String gp2) 
 	throws FileNotFoundException, IOException {
+		allGenes 		= new TreeMap <String, Integer>();
+		geneCount 		= 0;
+		genePairCount 	= 0;
 		plist1 = getPathwayList(pw1); 
 		plist2 = getPathwayList(pw2);
 		glist1 = getGeneList(ge1);

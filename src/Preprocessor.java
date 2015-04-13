@@ -103,9 +103,9 @@ public class Preprocessor {
 			}
 		}
 		
-		//writePathway(outp, pathway);
-		//writePathwayGene(outp, pathway_gene);
-		//writePathwayGenePair(outp, pathway_genepair);
+		writePathway(outp, pathway);
+		writePathwayGene(outp, pathway_gene);
+		writePathwayGenePair(outp, pathway_genepair);
 	}
 	
 	public void loadKEGG() {
@@ -130,6 +130,7 @@ public class Preprocessor {
 						count++;
 						if (count==1) {
 							name = line;
+							pathway.add(name);
 						} else {
 							genes.add(line);
 						}
@@ -306,11 +307,11 @@ public class Preprocessor {
 	public static void main(String[] args) {
 		Preprocessor prep = new Preprocessor();
 		// pre-process GSDID - Gene systematic names
-		prep.loadGSDID();
+		// prep.loadGSDID();
 		// pre-process Wikipathway database
-		prep.loadWikiPathway();
+		// prep.loadWikiPathway();
 		// pre-process KEGG database
-		//prep.loadKEGG();
+		prep.loadKEGG();
 		// preprocess intPathway database
 		//prep.loadIntPathway();
 	}

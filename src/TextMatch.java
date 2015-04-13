@@ -1,20 +1,25 @@
 import java.io.*;
 import java.util.*;
 
-public class DatabaseIntegration {
+public class TextMatch {
 	private String dir1;
 	private String dir2;
+	private List<String> db1;
+	private List<String> db2;
+	private List<List<Double>> scores;
 	
-	public DatabaseIntegration(String _dir1, String _dir2) {
+	public TextMatch(String _dir1, String _dir2) {
 		this.dir1 = _dir1;
 		this.dir2 = _dir2;
+		db1 = new ArrayList<String>();
+		db2 = new ArrayList<String>();
+		scores = new ArrayList<List<Double>>();
 	}
 	
 	// matching 2 databases using text matching (LCS)
 	public void matchByName() {
-		List<String> db1 = loadPathway(dir1);
-		List<String> db2 = loadPathway(dir2);
-		List<List<Double>> scores = new ArrayList<List<Double>>();
+		db1 = loadPathway(dir1);
+		db2 = loadPathway(dir2);
 		//brute force: text match db1 and db2
 		for (String name1 : db1) {
 			List<Double> row_score = new ArrayList<Double>();
@@ -30,7 +35,7 @@ public class DatabaseIntegration {
 	// load pathway.txt files inside the 2 input directories
 	private ArrayList<String> loadPathway(String dir) {
 		ArrayList<String> result = new ArrayList<String>();
-		File file = new File(dir+"\\pathway.txt");
+		File file = new File(dir);
 		try {
 			FileReader fr = new FileReader(file.getAbsoluteFile());
 			BufferedReader br = new BufferedReader(fr);
@@ -105,6 +110,17 @@ public class DatabaseIntegration {
 		}
 		 
 		return result;
+	}
+	
+	public double getLCSScore(String pathway1, String pathway2) {
+		int i = db1.indexOf(pathway1);
+		int j = db2.indexOf(pathway2);
+		try {
+			return this.scores.get(i).get(j);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1;
 	}
 	
 	public static void main(String[] args) {}
