@@ -1,4 +1,4 @@
-"KEGG","intpathway","LCS","Gene Agreement","GenePair Agreement"
+"kegg","intpathway","LCS","Gene Agreement","GenePair Agreement"
 "c5_isoprenoid_biosynthesis,_mevalonate_pathway","fatty_acid_oxidation","9","0.031","0.001"
 "c5_isoprenoid_biosynthesis,_mevalonate_pathway","glycine_biosynthesis_from_threonine","22","0.003","0.000"
 "c5_isoprenoid_biosynthesis,_mevalonate_pathway","salvage_pathways_of_guanine,_xanthine_and_their_nucleosides","17","0.009","0.000"

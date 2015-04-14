@@ -165,9 +165,14 @@ public class Validation {
 	}
 	
 	public void writeTopMatchToCSV(String db1, String db2, List<Double> weightSet) {
+		String out = "data\\result\\";
 		String hash =  Double.toString(Math.random());
+		if (weightSet.equals(LCSWeightSet)) { hash = "LCS"; }
+		else if (weightSet.equals(GAWeightSet)) { hash = "Gene"; }
+		else if (weightSet.equals(GPAWeightSet)) { hash = "GenePair"; }
+		else {	out = "data\\resultGA\\"; hash = ""; }
 		TreeMap<String, String> topMatch = getTopMatch(weightSet);
-		String out = "data\\result\\" + db1.toLowerCase() + "_" + db2.toLowerCase() 
+		out += db1.toLowerCase() + "_" + db2.toLowerCase() 
 															+ "_topMatch_" + hash + ".csv";
 		try {
 			calculateScore(weightSet);
@@ -213,6 +218,8 @@ public class Validation {
 				val.writeToCSV(args[0], args[1]);
 				val.writeTopMatchToCSV(args[0], args[1], LCSWeightSet);
 				val.writeTopMatchToCSV(args[0], args[1], GAWeightSet);
+				val.writeTopMatchToCSV(args[0], args[1], GPAWeightSet);
+				TreeMap<String, String> top = val.getTopMatch(GAWeightSet);
 			} else {
 				//print out usage guide
 				System.out.println("Usage:	<database1> <database2> or \n" 

@@ -1,18 +1,16 @@
 import java.util.*;
+import java.util.Map.Entry;
 
 public class GeneticAlg {
 	private static double mutationRate = 0.015;
 	private static double geneMutationRate = 0.05;
 	private static double min_average = 0.8;
-	private static int max_iteration = 100;
+	private static int max_iteration = 1000;
 	private static int population_size = 16;
 	private static Population population;
-	private static String database1;
-	private static String database2;
 	
 	public static void randomizePopulation() {
 		population = new Population(population_size, true);
-		FitnessCal.setDatabases(database1, database2);
 	}
 	
 	public static Individual roundWheelSelection() {
@@ -64,7 +62,7 @@ public class GeneticAlg {
 	}
 	
 	public static boolean isSatisfied() {
-		return population.getNormalizedFitnessScore() >= min_average;
+		return population.getNormalizedFitnessScore() - population.getAverageRepeatRate() >= min_average;
 	}
 	
 	public static void evolvePopulation() {
@@ -81,7 +79,7 @@ public class GeneticAlg {
 				Individual parent2 = roundWheelSelection();
 				Individual offspring = crossover(parent1, parent2);
 				new_population.setIndividual(i, offspring);
-			}
+			} 
 			// mutate some new offsprings
 			for (int i=0; i<new_population.getSize(); i++) {
 				Individual individual = new_population.getIndividual(i);
@@ -90,9 +88,12 @@ public class GeneticAlg {
 			population = new_population;
 		} while (!isSatisfied() && count <max_iteration);
 		
-		System.out.println(population.getNormalizedFitnessScore() + " at iteration: " + count);
+		System.out.println(population.getNormalizedFitnessScore() - 
+							population.getAverageRepeatRate() + " at iteration: " + count);
 		// record best finest data
 		Individual best = population.getFitness();
+		System.out.println(best.getFitness() + " " + 
+							FitnessCal.getRepeatRate(best));
 		System.out.println(	best.getWeight(0) + " " + best.getWeight(1) + " " + 
 							best.getWeight(2) + " " + best.getWeight(3));
 		FitnessCal.writeToCSV(best);
@@ -101,8 +102,7 @@ public class GeneticAlg {
 	
 	public static void main (String[] args) {
 		try {
-			database1 = args[0];
-			database2 = args[1];
+			FitnessCal.setDatabases(args[0], args[1]);
 			// initialize a population and randomize their genes
 			randomizePopulation();
 			evolvePopulation();
@@ -145,6 +145,14 @@ class Population {
 		return getAverageFitnessScore()/getFitness().getFitness();
 	}
 	
+	public double getAverageRepeatRate() {
+		double repeat = 0.0;
+		for (int i=0; i< getSize(); i++) {
+			repeat += FitnessCal.getRepeatRate(getIndividual(i));
+		}
+		return repeat/getSize();
+	}
+	
 	public int getSize() {
 		return size;
 	}
@@ -168,6 +176,7 @@ class Individual {
 	static int defaultLength = 4; // number of weights
 	private double[] weights = new double[defaultLength];
 	private double fitness = 0; // fitness, i.e. average score of top 100 matched pairs
+	private double repeatRate = 0;
 	
 	// create random individual
 	public void generateIndividual() {
@@ -188,6 +197,13 @@ class Individual {
 		if (fitness == 0)
 			fitness = FitnessCal.getFitness(this);
 		return fitness;
+	}
+	
+	public double getRepeatRate() {
+		if (repeatRate == 0) {
+			fitness = FitnessCal.getRepeatRate(this);
+		}
+		return repeatRate;
 	}
 }
 
@@ -216,6 +232,25 @@ class FitnessCal {
 		}
 		return sum/topHundred.size();
 	} 
+	
+	public static double getRepeatRate(Individual individual) {
+		List<Double> weightSet = new ArrayList<Double>();
+		for (int i=0; i<individual.getSize(); i++) {
+			weightSet.add(individual.getWeight(i));
+		}
+		TreeMap<String, String> topMatch = validation.getTopMatch(weightSet);
+		List<String> non_repeat = new ArrayList<String>();
+		int count = 0;
+		for (Entry<String, String> pair : topMatch.entrySet()) {
+			if (!non_repeat.contains(pair.getValue())) {
+				non_repeat.add(pair.getValue());
+			} else { 
+				count++; 
+			}
+		}
+		double repeatRate = (double)count/(double)topMatch.size();
+		return repeatRate;
+	}
 	
 	public static void writeToCSV(Individual individual) {
 		List<Double> weightSet = new ArrayList<Double>();
