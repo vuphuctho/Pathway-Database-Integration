@@ -78,14 +78,13 @@ public class Validation {
 	}
 	
 	public List<Double> getTopHundred(List<Double> weightSet) {
-		// calculate scores based on weight set
-		calculateScore(weightSet);
+		TreeMap<String, String> topMatch = getTopMatch(weightSet);
 		// get a sorted list
 		List<Double> sortedScores = new ArrayList<Double>();
-		for (int i=0; i<scores.length; i++) {
-			for (int j=0; j<scores[0].length; j++) {
-				sortedScores.add(scores[i][j]);
-			}
+		for (Entry<String, String> pair : topMatch.entrySet()) {
+			int i = PathInt.plist1.indexOf(pair.getKey());
+			int j = PathInt.plist2.indexOf(pair.getValue());
+			sortedScores.add(scores[i][j]);
 		} 
 		Collections.sort(sortedScores);
 		List<Double> topHundred = sortedScores.subList(0, 100);

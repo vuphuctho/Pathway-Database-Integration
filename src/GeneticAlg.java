@@ -90,12 +90,13 @@ public class GeneticAlg {
 			population = new_population;
 		} while (!isSatisfied() && count <max_iteration);
 		
-		System.out.println(population.getAverageFitnessScore());
+		System.out.println(population.getNormalizedFitnessScore() + " at iteration: " + count);
 		// record best finest data
 		Individual best = population.getFitness();
 		System.out.println(	best.getWeight(0) + " " + best.getWeight(1) + " " + 
 							best.getWeight(2) + " " + best.getWeight(3));
 		FitnessCal.writeToCSV(best);
+		FitnessCal.writeTopMatchToCSV(best);
 	}
 	
 	public static void main (String[] args) {
