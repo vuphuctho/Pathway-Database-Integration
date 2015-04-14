@@ -1,5 +1,7 @@
 import java.io.*;
+import java.sql.Timestamp;
 import java.util.*;
+import java.util.Map.Entry;
 
 import com.opencsv.*;
 /*
@@ -16,6 +18,9 @@ public class Validation {
 	private static String[] genepairs    = {	input_dir + "intpathway\\pathway_genepair.txt",
 												input_dir + "KEGG\\pathway_genepair.txt",
 												input_dir + "wikipathways\\pathway_genepair.txt"};
+	private static List<Double> LCSWeightSet = Arrays.asList(0.0, 0.0, 0.0, 1.0);
+	private static List<Double> GAWeightSet = Arrays.asList(0.0, 0.1, 0.0, 0.0);
+	private static List<Double> GPAWeightSet = Arrays.asList(0.0, 0.0, 1.0, 0.0);
 	private PathInt pathint;
 	private TextMatch textmatch;
 	private Double[][] scores;
@@ -88,6 +93,23 @@ public class Validation {
 		return topHundred;
 	}
 	
+	public TreeMap<String, String> getTopMatch(List<Double> weightSet) {
+		TreeMap<String, String> topMatch = new TreeMap<String, String>();
+		calculateScore(weightSet);
+		// get best match for each pathway in plist1
+		for (int i=0; i<PathInt.plist1.size(); i++) {
+			int index=0; double max = scores[i][index];
+			for (int j=1; j<PathInt.plist2.size(); j++) {
+				if (max < scores[i][j]) {
+					index = j; max = scores[i][j];
+				}
+			}
+			topMatch.put(PathInt.plist1.get(i), PathInt.plist2.get(index));
+		}
+		
+		return topMatch;
+	}
+	
 	public void writeToCSV(String db1, String db2) {
 		String out = "data\\result\\" + db1.toLowerCase() + "_" + db2.toLowerCase() + ".csv";
 		try {
@@ -143,6 +165,40 @@ public class Validation {
 		} 
 	}
 	
+	public void writeTopMatchToCSV(String db1, String db2, List<Double> weightSet) {
+		String hash =  Double.toString(Math.random());
+		TreeMap<String, String> topMatch = getTopMatch(weightSet);
+		String out = "data\\result\\" + db1.toLowerCase() + "_" + db2.toLowerCase() 
+															+ "_topMatch_" + hash + ".csv";
+		try {
+			calculateScore(weightSet);
+			CSVWriter writer = new CSVWriter(new FileWriter(out));
+			String[] w_set = {"Weight set: ", weightSet.toString()};
+			writer.writeNext(w_set);
+			String[] attr = {db1, db2, "LCS", "Normalized LCS" ,"Gene Agreement", "GenePair Agreement", "Score"};
+			writer.writeNext(attr);
+			
+			for (Entry<String, String> pair : topMatch.entrySet()) {
+				String pathway1 = pair.getKey();
+				String pathway2 = pair.getValue();
+				String[] entry = new String[7];
+				entry[0] = pathway1;
+				entry[1] = pathway2;
+				entry[2] = String.format("%.0f", textmatch.getLCSScore(entry[0], entry[1]));
+				entry[3] = String.format("%.3f", textmatch.getNormalizedScore(entry[0], entry[1]));
+				int i = PathInt.plist1.indexOf(pathway1); int j = PathInt.plist2.indexOf(pathway2);
+				entry[4] = String.format("%.3f", PathInt.scoreArr[i][j][0]); 
+				entry[5] = String.format("%.3f", PathInt.scoreArr[i][j][1]);
+				entry[6] = String.format("%.3f", scores[i][j]);
+				writer.writeNext(entry);
+			}
+			
+			writer.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public static void main (String[] args) {
 		try {
 			if (args.length==1 && args[0].equals("--all")) {
@@ -156,6 +212,8 @@ public class Validation {
 			} else if (args.length==2) {
 				Validation val = new Validation(args[0], args[1]);
 				val.writeToCSV(args[0], args[1]);
+				val.writeTopMatchToCSV(args[0], args[1], LCSWeightSet);
+				val.writeTopMatchToCSV(args[0], args[1], GAWeightSet);
 			} else {
 				//print out usage guide
 				System.out.println("Usage:	<database1> <database2> or \n" 

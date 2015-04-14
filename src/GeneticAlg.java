@@ -223,4 +223,12 @@ class FitnessCal {
 		}
 		validation.writeToCSV(database1, database2, weightSet);
 	}
+	
+	public static void writeTopMatchToCSV(Individual individual) {
+		List<Double> weightSet = new ArrayList<Double>();
+		for (int i=0; i<individual.getSize(); i++) {
+			weightSet.add(individual.getWeight(i));
+		}
+		validation.writeTopMatchToCSV(database1, database2, weightSet);
+	}
 }

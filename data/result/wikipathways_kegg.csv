@@ -1,4 +1,4 @@
-"wikipathways","KEGG","LCS","Gene Agreement","GenePair Agreement"
+"wikipathways","kegg","LCS","Gene Agreement","GenePair Agreement"
 "sc_cytoplasmic_trna_synthetases_wp219_76236","c5_isoprenoid_biosynthesis,_mevalonate_pathway","17","0.093","0.015"
 "sc_cytoplasmic_trna_synthetases_wp219_76236","gluconeogenesis,_oxaloacetate_=>_fructose-6p","14","0.197","0.081"
 "sc_cytoplasmic_trna_synthetases_wp219_76236","aminoacyl-trna_biosynthesis,_eukaryotes","18","0.357","0.294"
