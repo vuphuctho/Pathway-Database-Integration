@@ -26,8 +26,8 @@ public class TextMatch {
 		for (String name1 : db1) {
 			List<Double> row_score = new ArrayList<Double>();
 			for (String name2 : db2) {
-				//row_score.add((double)LCS(name1, name2).length());
-				row_score.add(LCSRatio(name1, name2));
+				row_score.add((double)LCS(name1, name2).length());
+				//row_score.add(LCSRatio(name1, name2));
 			}
 			scores.add(row_score);
 		}

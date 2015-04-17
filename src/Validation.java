@@ -92,6 +92,19 @@ public class Validation {
 		return topHundred;
 	}
 	
+	public double getAverageScore(List<Double> weightSet) {
+		calculateScore(weightSet);
+		double sum = 0;
+		int N = PathInt.plist1.size();
+		int M = PathInt.plist2.size();
+		for (int i=0; i<N; i++) {
+			for (int j=1; j<M; j++) {
+				sum += (double)scores[i][j];
+			}
+		}
+		return sum/(N*M);
+	}
+	
 	public TreeMap<String, String> getTopMatch(List<Double> weightSet) {
 		TreeMap<String, String> topMatch = new TreeMap<String, String>();
 		calculateScore(weightSet);

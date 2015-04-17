@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Objects;
 import java.util.TreeMap;
 import java.util.Vector;
@@ -128,8 +129,13 @@ public class PathInt {
 		for (Integer i : genes1) hash.add(i);
 		for (Integer j : genes2) if (hash.contains(j)) n_intersect++;
 		
+		double representation_factor = (double)n_intersect - (double)genes1.size() * (double)genes2.size() / (double) geneCount;
+		Double pvalue;
 		HypergeometricDistribution hyp = new HypergeometricDistribution(geneCount,(int)genes1.size(),(int)genes2.size());
-		Double pvalue = 1 - hyp.cumulativeProbability(n_intersect);
+		if (representation_factor < 0.0)
+			pvalue = hyp.cumulativeProbability(n_intersect);
+		else
+			pvalue = 1 - hyp.cumulativeProbability(n_intersect);
 		
 		return pvalue;
 	}
@@ -148,9 +154,14 @@ public class PathInt {
 		for (Pair <Integer,Integer> j : pairs2) if (hash.contains(j)) n_intersect++;
 		
 		genePairCount = geneCount * (geneCount-1) / 2;
+		double representation_factor = (double)n_intersect - (double)pairs1.size() * (double)pairs2.size() / (double) genePairCount;
+		Double pvalue;
 		
 		HypergeometricDistribution hyp = new HypergeometricDistribution(genePairCount,(int)pairs1.size(),(int)pairs2.size());
-		Double pvalue = 1 - hyp.cumulativeProbability(n_intersect);
+		if (representation_factor < 0.0)
+			pvalue = hyp.cumulativeProbability(n_intersect);
+		else
+			pvalue = 1 - hyp.cumulativeProbability(n_intersect);
 		
 		return pvalue;
 	}
@@ -176,7 +187,7 @@ public class PathInt {
 				scoreArr[i][j][1] = genePairAgreementScore(plist1.get(i),plist2.get(j));
 				fw.write(plist1.get(i) + " " + plist2.get(j) + " : " + scoreArr[i][j][0] + " " + scoreArr[i][j][1]);
 				
-				if (scoreArr[i][j][0] >= 0.9) fw.write(" Significant");
+				//if (scoreArr[i][j][0] >= 0.9) fw.write(" Significant");
 				fw.write("\n");
 			}
 		}

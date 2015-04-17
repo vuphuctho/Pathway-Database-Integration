@@ -4,7 +4,7 @@ import java.util.Map.Entry;
 public class GeneticAlg {
 	private static double mutationRate = 0.015;
 	private static double geneMutationRate = 0.05;
-	private static double min_average = 0.8;
+	private static double min_average = 0.99;
 	private static int max_iteration = 1000;
 	private static int population_size = 16;
 	private static Population population;
@@ -62,7 +62,7 @@ public class GeneticAlg {
 	}
 	
 	public static boolean isSatisfied() {
-		return population.getNormalizedFitnessScore() - population.getAverageRepeatRate() >= min_average;
+		return population.getNormalizedFitnessScore() >= min_average;
 	}
 	
 	public static void evolvePopulation() {
@@ -88,8 +88,7 @@ public class GeneticAlg {
 			population = new_population;
 		} while (!isSatisfied() && count <max_iteration);
 		
-		System.out.println(population.getNormalizedFitnessScore() - 
-							population.getAverageRepeatRate() + " at iteration: " + count);
+		System.out.println(population.getNormalizedFitnessScore()  + " at iteration: " + count);
 		// record best finest data
 		Individual best = population.getFitness();
 		System.out.println(best.getFitness() + " " + 
@@ -230,7 +229,9 @@ class FitnessCal {
 		for (double val : topHundred) {
 			sum += val;
 		}
-		return sum/topHundred.size();
+		double match = sum/topHundred.size(); 
+		double unmatch = validation.getAverageScore(weightSet);
+		return match/unmatch;
 	} 
 	
 	public static double getRepeatRate(Individual individual) {
