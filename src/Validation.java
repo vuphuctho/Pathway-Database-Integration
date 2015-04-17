@@ -149,7 +149,7 @@ public class Validation {
 					String[] entry = new String[7];
 					entry[0] = PathInt.plist1.get(i);
 					entry[1] = PathInt.plist2.get(j);
-					entry[2] = String.format("%.0f", textmatch.getLCSScore(entry[0], entry[1]));
+					entry[2] = String.format("%.3f", textmatch.getLCSScore(entry[0], entry[1]));
 					entry[3] = String.format("%.3f", textmatch.getNormalizedScore(entry[0], entry[1]));
 					entry[4] = String.format("%.3f", PathInt.scoreArr[i][j][0]); 
 					entry[5] = String.format("%.3f", PathInt.scoreArr[i][j][1]);
@@ -188,7 +188,7 @@ public class Validation {
 				String[] entry = new String[7];
 				entry[0] = pathway1;
 				entry[1] = pathway2;
-				entry[2] = String.format("%.0f", textmatch.getLCSScore(entry[0], entry[1]));
+				entry[2] = String.format("%.3f", textmatch.getLCSScore(entry[0], entry[1]));
 				entry[3] = String.format("%.3f", textmatch.getNormalizedScore(entry[0], entry[1]));
 				int i = PathInt.plist1.indexOf(pathway1); int j = PathInt.plist2.indexOf(pathway2);
 				entry[4] = String.format("%.3f", PathInt.scoreArr[i][j][0]); 

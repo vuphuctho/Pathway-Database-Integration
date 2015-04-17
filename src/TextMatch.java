@@ -26,7 +26,8 @@ public class TextMatch {
 		for (String name1 : db1) {
 			List<Double> row_score = new ArrayList<Double>();
 			for (String name2 : db2) {
-				row_score.add((double)LCS(name1, name2).length());
+				//row_score.add((double)LCS(name1, name2).length());
+				row_score.add(LCSRatio(name1, name2));
 			}
 			scores.add(row_score);
 		}
@@ -112,6 +113,15 @@ public class TextMatch {
 		}
 		 
 		return result;
+	}
+	
+	private double LCSRatio (String str1, String str2) {
+		String lcs = LCS(str1, str2);
+		int non_lcs_length = Math.max(str1.length() - lcs.length(),
+								str2.length() - lcs.length());
+		if (non_lcs_length==0) return (double) lcs.length();
+		 
+		return (double)lcs.length()/(double)non_lcs_length;
 	}
 	
 	public double getLCSScore(String pathway1, String pathway2) {

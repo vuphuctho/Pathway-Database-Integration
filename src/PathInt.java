@@ -174,7 +174,10 @@ public class PathInt {
 			for (int j = 0; j < plist2.size(); j++) {
 				scoreArr[i][j][0] = geneAgreementScore(plist1.get(i),plist2.get(j));
 				scoreArr[i][j][1] = genePairAgreementScore(plist1.get(i),plist2.get(j));
-				fw.write(i + " " + j + " : " + scoreArr[i][j][0] + " " + scoreArr[i][j][1] + "\n");
+				fw.write(plist1.get(i) + " " + plist2.get(j) + " : " + scoreArr[i][j][0] + " " + scoreArr[i][j][1]);
+				
+				if (scoreArr[i][j][0] >= 0.9) fw.write(" Significant");
+				fw.write("\n");
 			}
 		}
 		
